@@ -14,6 +14,7 @@ import com.example.springboot_api_template.service.AuthService;
 import com.example.springboot_api_template.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,7 +28,7 @@ public class AuthController {
 	private JwtUtil jwtUtil;
 
 	@PostMapping("/login")
-	public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest loginRequest) {
 		try {
 			User user = authService.checkLogin(loginRequest);
 			if (user != null) { // Đăng nhập thành công

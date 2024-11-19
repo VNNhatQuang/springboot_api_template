@@ -1,5 +1,7 @@
 package com.example.springboot_api_template.service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,8 @@ public class UserService {
 	 * @return
 	 */
 	public User addUser(User user) {
-		return userRepository.save(user);
+		User newUser = new User(user.getUserName(), user.getEmail(), user.getPhoneNumber(), user.getPassword(), Date.from(Instant.now()), Date.from(Instant.now()));
+		return userRepository.save(newUser);
 	}
 
 	/**
@@ -57,10 +60,10 @@ public class UserService {
 			user.setEmail(userDetails.getEmail());
 			user.setPhoneNumber(userDetails.getPhoneNumber());
 			user.setPassword(userDetails.getPassword());
-			user.setCode(userDetails.getCode());
-			user.setCodeExpiredAt(userDetails.getCodeExpiredAt());
-			user.setUpdatedAt(userDetails.getUpdatedAt());
-			user.setCreatedAt(userDetails.getCreatedAt());
+//			user.setCode(userDetails.getCode());
+//			user.setCodeExpiredAt(userDetails.getCodeExpiredAt());
+			user.setUpdatedAt(Date.from(Instant.now()));
+//			user.setCreatedAt(userDetails.getCreatedAt());
 			return userRepository.save(user);
 		}
 		return null;

@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springboot_api_template.model.User;
+import com.example.springboot_api_template.request.StoreUserRequest;
+import com.example.springboot_api_template.request.UpdateUserRequest;
 import com.example.springboot_api_template.response.ApiResponse;
 import com.example.springboot_api_template.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
@@ -61,8 +64,10 @@ public class UserController {
 	}
 
 	@PostMapping("/store")
-	public ResponseEntity<Object> storeUser(@RequestBody User user) {
+	public ResponseEntity<Object> storeUser(@Valid @RequestBody StoreUserRequest storeUserRequest) {
 		try {
+			User user = new User(storeUserRequest.getUserName(), storeUserRequest.getEmail(), storeUserRequest.getPhoneNumber(), storeUserRequest.getPassword());
+
 			User newUser = userService.addUser(user);
 			ApiResponse<User> successResponse = new ApiResponse<User>(ApiResponse.SUCCESS, "Add new user", newUser);
 			return ResponseEntity.ok(successResponse);
@@ -74,8 +79,10 @@ public class UserController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+	public ResponseEntity<Object> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 		try {
+			User userDetails = new User(updateUserRequest.getUserName(), updateUserRequest.getEmail(), updateUserRequest.getPhoneNumber(), updateUserRequest.getPassword());
+
 			User updatedUser = userService.updateUser(id, userDetails);
 			if (updatedUser == null) {
 				return ResponseEntity.notFound().build();

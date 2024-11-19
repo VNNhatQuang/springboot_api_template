@@ -1,8 +1,12 @@
 package com.example.springboot_api_template.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequest {
 
+	@NotBlank(message = "userName is require")
 	private String userName;
+	@NotBlank(message = "password is require")
 	private String password;
 
 	public LoginRequest() {

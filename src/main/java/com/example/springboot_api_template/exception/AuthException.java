@@ -15,25 +15,21 @@ import io.jsonwebtoken.SignatureException;
 
 @ControllerAdvice
 public class AuthException {
+
 	@ExceptionHandler(ExpiredJwtException.class)
-	public ResponseEntity<Map<String, String>> handleExpiredJwtException(ExpiredJwtException ex) {
-		return buildErrorResponse("Token is expired", HttpStatus.UNAUTHORIZED);
+	public ResponseEntity<Object> handleExpiredJwtException(ExpiredJwtException ex) {
+		return responseException("Token is expired");
 	}
 
 	@ExceptionHandler(SignatureException.class)
-	public ResponseEntity<Map<String, String>> handleSignatureException(SignatureException ex) {
-		return buildErrorResponse("Token isn't valid", HttpStatus.UNAUTHORIZED);
+	public ResponseEntity<Object> handleSignatureException(SignatureException ex) {
+		return responseException("Token isn't valid");
 	}
 
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
-		return buildErrorResponse("Token validation error", HttpStatus.UNAUTHORIZED);
-	}
-
-	private ResponseEntity<Map<String, String>> buildErrorResponse(String message, HttpStatus status) {
-		Map<String, String> errorResponse = new HashMap<>();
+	private ResponseEntity<Object> responseException(Object message) {
+		Map<Object, Object> errorResponse = new HashMap<>();
 		errorResponse.put("status", ApiResponse.UNAUTHORIZED);
 		errorResponse.put("message", message);
-		return new ResponseEntity<>(errorResponse, status);
+		return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
 	}
 }

@@ -8,6 +8,7 @@ public class ApiResponse<T> {
 	public static final String NOT_FOUND = "not found";
 	public static final String ERROR = "error";
 	public static final String UNAUTHORIZED = "unauthorized";
+	public static final String BAD_REQUEST = "bad request";
 
 	private String status;
 	private String message;

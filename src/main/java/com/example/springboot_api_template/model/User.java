@@ -46,8 +46,7 @@ public class User {
 		super();
 	}
 
-	public User(long id, String userName, String email, String phoneNumber, String password, Long code,
-			Date codeExpiredAt, Date updatedAt, Date createdAt) {
+	public User(long id, String userName, String email, String phoneNumber, String password, Long code, Date codeExpiredAt, Date updatedAt, Date createdAt) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -58,6 +57,24 @@ public class User {
 		this.codeExpiredAt = codeExpiredAt;
 		this.updatedAt = updatedAt;
 		this.createdAt = createdAt;
+	}
+
+	public User(String userName, String email, String phoneNumber, String password, Date updatedAt, Date createdAt) {
+		super();
+		this.userName = userName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+		this.updatedAt = updatedAt;
+		this.createdAt = createdAt;
+	}
+
+	public User(String userName, String email, String phoneNumber, String password) {
+		super();
+		this.userName = userName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
 	}
 
 	public long getId() {
