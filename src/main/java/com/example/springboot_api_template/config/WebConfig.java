@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// Thêm interceptor để bảo vệ các đường dẫn /api/user/**
+		// Middleware register
 		registry.addInterceptor(jwtAuthMiddleware).addPathPatterns("/api/user/**");
 	}
 }

@@ -18,16 +18,16 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "user_name")
+	@Column(name = "user_name", unique = true, nullable = false)
 	private String userName;
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "phone_number")
+	@Column(name = "phone_number", unique = true, nullable = false)
 	private String phoneNumber;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Column(name = "code")
@@ -36,10 +36,10 @@ public class User {
 	@Column(name = "code_expired_at")
 	private Date codeExpiredAt;
 
-	@Column(name = "updated_at")
+	@Column(name = "updated_at", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "created_at")
+	@Column(name = "created_at", nullable = false)
 	private Date createdAt;
 
 	public User() {

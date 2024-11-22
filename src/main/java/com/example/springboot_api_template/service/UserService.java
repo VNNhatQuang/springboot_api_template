@@ -3,6 +3,7 @@ package com.example.springboot_api_template.service;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,10 @@ public class UserService {
 	 * @return
 	 */
 	public User addUser(User user) {
+		Optional<User> existingUser = userRepository.findByUserName(user.getUserName());
+		if (existingUser.isPresent()) {
+			throw new RuntimeException("User Name already exists!");
+		}
 		User newUser = new User(user.getUserName(), user.getEmail(), user.getPhoneNumber(), user.getPassword(), Date.from(Instant.now()), Date.from(Instant.now()));
 		return userRepository.save(newUser);
 	}

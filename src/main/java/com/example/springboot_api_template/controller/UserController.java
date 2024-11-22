@@ -71,6 +71,9 @@ public class UserController {
 			User newUser = userService.addUser(user);
 			ApiResponse<User> successResponse = new ApiResponse<User>(ApiResponse.SUCCESS, "Add new user", newUser);
 			return ResponseEntity.ok(successResponse);
+		} catch (RuntimeException e) {
+			ApiResponse<Object> errorResponse = new ApiResponse<>(ApiResponse.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
 		} catch (Exception e) {
 			System.out.println(e);
 			ApiResponse<Object> errorResponse = new ApiResponse<>(ApiResponse.ERROR, "Internal server error");
